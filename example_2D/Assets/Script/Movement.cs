@@ -8,8 +8,9 @@ public class Movement : MonoBehaviour
     public Animator animator;
     public float speed;
     float hInput, vInput;
+    private Vector3 direction;
 
-    private void FixedUpdate()
+    private void Update()
     {
         //float horizontal = Input.GetAxisRaw("Horizontal");
         //float vertical = Input.GetAxisRaw("Vertical");
@@ -17,13 +18,17 @@ public class Movement : MonoBehaviour
         hInput = joystick.Horizontal * speed * Time.deltaTime;
         vInput = joystick.Vertical * speed * Time.deltaTime;
 
-        Vector3 direction = new Vector3 (hInput, vInput);
+        direction = new Vector3 (hInput, vInput);
 
         AnimateMovement(direction);
 
         transform.Translate(hInput, vInput, 0);
 
-        transform.position += direction * speed * Time.deltaTime;
+       
+    }
+    private void FixedUpdate()
+    {
+        this.transform.position += direction * speed * Time.deltaTime;
     }
     void AnimateMovement(Vector3 direction)
     {
